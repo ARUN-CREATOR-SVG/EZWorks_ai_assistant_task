@@ -10,15 +10,15 @@ cached_questions = []
 def generate_challenges():
     return {"error": "Filename required for challenge generation."}
 
-async def generate_challenges(filename):
+def generate_challenges(filename):
     text = get_full_context(filename)
-    questions = await call_llama_with_context(text, "Generate 3 logic-based questions from the above content")
+    questions = call_llama_with_context(text, "Generate 3 logic-based questions from the above content")
     global cached_questions
     cached_questions = questions.strip().split("\n")[:3]
     return {"questions": cached_questions}
 
-async def evaluate_response(question, user_answer, filename):
-    ideal = await call_llama_with_context("", f"What is the best answer to: {question}")
+def evaluate_response(question, user_answer, filename):
+    ideal = call_llama_with_context("", f"What is the best answer to: {question}")
     vec_user = embedding_model.embed_query(user_answer)
     vec_ideal = embedding_model.embed_query(ideal)
     score = cosine_similarity([vec_user], [vec_ideal])[0][0]
