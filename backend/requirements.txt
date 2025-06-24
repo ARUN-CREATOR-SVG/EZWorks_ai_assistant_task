@@ -17,3 +17,6 @@ huggingface-hub
 python-dotenv
 
 faiss-cpu
+
+sentence-transformers
+scikit-learn
