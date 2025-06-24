@@ -2,6 +2,9 @@ from langchain.llms import HuggingFaceEndpoint
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 llm = HuggingFaceEndpoint(
     repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
