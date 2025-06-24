@@ -22,24 +22,6 @@ A GenAI-powered assistant built using **FastAPI**, **LangChain**, **HuggingFace 
 ---
 
 
-## 🗂️ Project Structure
-
-EZworks_ai_assistant/
-├── backend/
-│ ├── main.py 
-│ ├── chains/
-│ │ ├── qa_chain.py
-│ │ ├── summarizer.py
-│ │ └── challenge_chain.py
-│ ├── llm/
-│ │ └── llama_api.py # LangChain + HuggingFace API integration
-│ └── vector_store/
-│ ├── ingest.py
-│ └── query.py
-|
-├── README.md 
-├── requirements.txt
-└── .gitignore
 
 
 ## 🔧 Tech Stack
