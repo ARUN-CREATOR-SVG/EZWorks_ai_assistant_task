@@ -1,0 +1,5 @@
+from llm.llama_api import call_llama_with_context
+
+async def generate_summary(text_chunks):
+    joined_text = "\n".join(text_chunks[:10])
+    return await call_llama_with_context(joined_text, "Give a concise summary of this content in under 150 words")
