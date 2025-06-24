@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+
+langchain
+langchain-core
+
+pymupdf
+numpy
+
+langchain-huggingface
+transformers
+huggingface-hub
+
+
+python-dotenv
