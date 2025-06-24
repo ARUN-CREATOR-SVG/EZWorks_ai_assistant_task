@@ -1,17 +1,22 @@
-from langchain.llms import HuggingFaceEndpoint
+from fastapi import HTTPException
+from langchain_huggingface import HuggingFaceEndpoint,ChatHuggingFace
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-
 from dotenv import load_dotenv
+import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
-    repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
+    repo_id='HuggingFaceH4/zephyr-7b-beta',
     task='text-generation',
-    max_new_tokens=100
+    huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
 )
 
+model = ChatHuggingFace(llm=llm)
 
 prompt = PromptTemplate(
     template="""
@@ -26,8 +31,14 @@ prompt = PromptTemplate(
 )
 
 parser = StrOutputParser()
+chain = prompt | model | parser
 
-chain = prompt | llm | parser
 
 def call_llama_with_context(context, question):
-    return chain.run({"context": context, "question": question}).strip()
+    try:
+        result = chain.invoke({"context": context, "question": question})
+        return result.strip()
+    except Exception as e:
+        logger.exception("Error in call_llama_with_context")
+        raise HTTPException(status_code=500, detail=f"LLM error: {str(e)}")
+        
