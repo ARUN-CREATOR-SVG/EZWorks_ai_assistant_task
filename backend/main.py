@@ -24,9 +24,7 @@ def upload_file(file: UploadFile = File(...)):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    texts = ingest_document(file_path)
-    summary =  generate_summary(texts)
-    return {"summary": summary}
+    return {"filename": file.filename, "message": "File uploaded successfully"}
 
 @app.post("/ask")
 def ask(payload: AskRequest):
