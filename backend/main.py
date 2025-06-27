@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from chains.qa_chain import ask_question
-from schemas.schemas import AskRequest,EvaluateRequest,ChallengeRequest
+from schemas.schemas import AskRequest,EvaluateRequest,ChallengeRequest,SummaryRequest
 from chains.summarizer import generate_summary
 from chains.challenge_chain import generate_challenges, evaluate_response
 from vector_store.ingest import ingest_document
@@ -25,6 +25,14 @@ def upload_file(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     return {"filename": file.filename, "message": "File uploaded successfully"}
+
+
+@app.post("/summary")
+def get_summary(payload: SummaryRequest):
+    file_path = os.path.join(UPLOAD_DIR, payload.filename)
+    texts = ingest_document(file_path)
+    summary = generate_summary(texts)
+    return {"summary": summary}
 
 @app.post("/ask")
 def ask(payload: AskRequest):
