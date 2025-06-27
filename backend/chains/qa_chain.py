@@ -1,5 +1,5 @@
 from vector_store.query import retrieve_relevant_docs
-from llm.llama_api import call_llama_with_context
+from llm.llm_api import call_llama_with_context
 
 def ask_question(user_query, filename):
     context_docs = retrieve_relevant_docs(user_query, filename)

@@ -1,4 +1,4 @@
-from llm.llama_api import call_llama_with_context
+from llm.llm_api import call_llama_with_context
 from vector_store.query import get_full_context
 from langchain.prompts import PromptTemplate
 from langchain_huggingface import HuggingFaceEmbeddings
