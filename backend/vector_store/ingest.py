@@ -4,7 +4,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from utils.pdf_parser import parse_document
 import os
 
-VECTOR_DB_DIR = "vector_store/index"
+VECTOR_DB_DIR = os.path.join(os.getcwd(), "vector_store", "index")
+
 os.makedirs(VECTOR_DB_DIR, exist_ok=True)
 
 def ingest_document(file_path):
