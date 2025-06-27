@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional
 
+class SummaryRequest(BaseModel):
+    filename: str
+
+
 class AskRequest(BaseModel):
     question: str
     filename: Optional[str] = None
