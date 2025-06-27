@@ -16,7 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = os.path.join(tempfile.gettempdir(), "uploads")
+UPLOAD_DIR = os.path.join(os.getcwd(), "uploads")
+
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.post("/upload")
